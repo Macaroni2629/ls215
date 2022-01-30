@@ -6,7 +6,11 @@
 // Examples:
 
 function wordCap(string) {
-  return string[0].toUpperCase() + string.slice[1].toLowerCase();
+  let arrayOfStrings = string.split(' ');
+  //console.log(arrayOfStrings);
+  return arrayOfStrings.map(word => {
+    return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  }).join(' ');
 }
 
 // Copy Code
