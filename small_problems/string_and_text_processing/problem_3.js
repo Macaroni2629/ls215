@@ -1,16 +1,15 @@
-function letterCaseCount(string) {
-  const lowerArray = string.match(/[a-z]/g) || [];
-  const upperArray = string.match(/[A-Z]/g) || [];
-  const neitherArray = string.match(/[^a-z]/gi) || [];
+// Capitalize Words
+// Write a function that takes a string as an argument and returns that string with the first character of every word capitalized and all subsequent characters in lowercase.
 
-  return {
-    lowercase: lowerArray.length,
-    uppercase: upperArray.length,
-    neither: neitherArray.length,
-  };
+// You may assume that a word is any sequence of non-whitespace characters.
+
+// Examples:
+
+function wordCap(string) {
+  return string[0].toUpperCase() + string.slice[1].toLowerCase();
 }
+
 // Copy Code
-console.log(letterCaseCount('abCdef 123'));  // { lowercase: 5, uppercase: 1, neither: 4 }
-console.log(letterCaseCount('AbCd +Ef'));    // { lowercase: 3, uppercase: 3, neither: 2 }
-console.log(letterCaseCount('123'));         // { lowercase: 0, uppercase: 0, neither: 3 }
-console.log(letterCaseCount(''));            // { lowercase: 0, uppercase: 0, neither: 0 }
+console.log(wordCap('four score and seven'));       // "Four Score And Seven"
+console.log(wordCap('the javaScript language'));    // "The Javascript Language"
+console.log(wordCap('this is a "quoted" word'));    // 'This Is A "quoted" Word'
