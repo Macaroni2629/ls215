@@ -1,22 +1,16 @@
-// Swap Case
-// Write a function that takes a string as an argument and returns that string with every lowercase letter changed to uppercase and every uppercase letter changed to lowercase. Leave all other characters unchanged.
+// Staggered Caps Part 1
+// Write a function that takes a string as an argument and returns that string with a staggered capitalization scheme. Every other character, starting from the first, should be capitalized and should be followed by a lowercase or non-alphabetic character. Non-alphabetic characters should not be changed, but should be counted as characters for determining when to switch between upper and lower case.
 
 // Examples:
 
-function swapCase(string) {
-  let arrayOfChars = string.split('');
-
-  return arrayOfChars.map(letter => {
-    if (letter.match(/[a-z]/)) {
-      return letter.toUpperCase();
-    } else if (letter.match(/[A-Z]/)) {
-      return letter.toLowerCase();
-    } else {
-      return letter;
-    }
+function staggeredCase(string) {
+  let arrayOfChars = [...string];
+  return arrayOfChars.map((char, index) => {
+    return index % 2 === 0 ? char.toUpperCase() : char.toLowerCase();
   }).join('');
 }
 
 // Copy Code
-console.log(swapCase('CamelCase'));              // "cAMELcASE"
-console.log(swapCase('Tonight on XYZ-TV'));      // "tONIGHT ON xyz-tv"
+console.log(staggeredCase('I Love Launch School!'));        // "I LoVe lAuNcH ScHoOl!"
+console.log(staggeredCase('ALL_CAPS'));                     // "AlL_CaPs"
+console.log(staggeredCase('ignore 77 the 4444 numbers'));   // "IgNoRe 77 ThE 4444 nUmBeRs"
