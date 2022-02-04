@@ -13,14 +13,19 @@
 // Examples:
 // input: String of characters
 // output: Boolean
+
+//RULES
 // explicit requirements : 
 // -You cannot use both letters from any given block.
 // -You can only use each block once.
 // -Return true or false
 // -Case insensitive
+
 // implicit requirements after questions?:
 // -The max length of the string is 13 characters long because there's that many blocks.
 // -the minimum length of the string is 1 character long.
+// - I don't have to use all the blocks.
+
 // Questions:
 // -Do I have to use all of the blocks? (No.)
 // -What if I have non letter characters? (Return false)
