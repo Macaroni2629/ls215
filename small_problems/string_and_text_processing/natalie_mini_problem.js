@@ -63,6 +63,20 @@ ALGORITHM (break into problems + guard clauses):
     
     
   - Return `num2`
+
+  Redone Algo
+  -Declare function `compareTwoNums` taking parameter `num1` and `num2`.
+    -Declare and initialize local variable `string` to string version of `num1`
+    -Declare and initialize local variable `num1Number` to number version of `num1`.
+    -Declare and initialize local variable `string2` to string version of `num2`.
+    -Declare and initialize local variable `num2number` to number version of `num2`.
+    -Declare and initialize local variable `sliceSize` to the length of `string2`.
+
+    -Implement a `while` loop with condition being `num1Number` being less than 1000.
+      -Increment `num1Number` by 1 every iteration.
+      -Reassign `string1` to a string version of itself.
+      -Implement an `if` conditional checking if `string1's` last few digits (which depends on `sliceSize`) is strictly equal to `string2's` last few digits (which depends on the same `sliceSize`).
+        -If this is true, return `num1Number`.
   
 */
 
