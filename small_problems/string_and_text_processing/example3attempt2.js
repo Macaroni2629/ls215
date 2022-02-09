@@ -83,7 +83,11 @@ ALGORITHM (break into problems + guard clauses):
 function isBlockWord(string) {
   if (!validDataType(string)) return false;
   string = string.toUpperCase();
-  let cleanedString = cleanString(string);
+  
+  if (containsNonletters(string)) return false
+  
+  let cleanedString = string.replaceAll(" ", "");
+  if (cleanedString === "") return false;
   let blocks = [["B", "O"], ["X", "K"], ["D", "Q"], ["C", "P"], ["N", "A"], ["G", "T"], ["R", "E"], ["F", "S"], ["J", "W"], ["H", "U"], ["V", "I"], ["L", "Y"], ["Z", "M"]];
   
   return blocks.every(block => {
@@ -101,9 +105,26 @@ function validDataType(string) {
   return true
 }
 
-function cleanString(string) {
-  return string.replace(/[^a-z]/ig, '');
+function containsNonletters(string) {
+  return /[^a-z ]/ig.test(string);
 }
+
+
+console.log(isBlockWord('BATCH'));      // true
+console.log(isBlockWord('BUTCH'));      // false
+console.log(isBlockWord('jest'));       // true
+console.log(isBlockWord('je st'));      // true
+console.log(isBlockWord('BU TCH'));     // false
+console.log(isBlockWord('jest$'));      // false
+console.log(isBlockWord("you're"));     // false
+console.log(isBlockWord(""));           // false
+console.log(isBlockWord("   "));        // false
+console.log(isBlockWord());             // false
+console.log(isBlockWord({}));           // false
+console.log(isBlockWord(null));         // false
+console.log(isBlockWord(NaN));          // false
+console.log(isBlockWord('0'));          // false
+console.log(isBlockWord(5));            // false
 
 
 console.log(isBlockWord('BATCH'));      // true
@@ -111,7 +132,7 @@ console.log(isBlockWord('BUTCH'));      // false
 console.log(isBlockWord('jest'));       // true
 console.log(isBlockWord('HARE')) // false
 console.log(isBlockWord('HA D')) // true
-console.log(isBlockWord('$POG')) // true
+console.log(isBlockWord('$POG')) // false
 console.log(isBlockWord('ZAGA')) // false
 
 console.log(isBlockWord([])) // false
