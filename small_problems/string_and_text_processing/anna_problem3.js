@@ -65,3 +65,65 @@ console.log(incrementer('computer')); // 'computer1'
 console.log(incrementer('computer0')); // 'computer01'
 console.log(incrementer('computer1')) // 'computer2'
 console.log(incrementer('computer129')) // 'computer130'
+
+//Anna's solution
+function incrementer(string) {
+  if (string.split('').every(char => !char.match(/^\d/gi))) {
+    return string + '1'
+  }
+
+  let digits = getLastDigits(string);
+  let alphaChars = string.slice(0, -(digits.length));
+  let count = getLeadingZeros(digits);
+  digits = deleteLeadingZeros(digits);
+
+  if (digits.split('').every(digit => digit === '9') && count > 0) {
+    digits = Number(digits) + 1;
+    return alphaChars + '0'.repeat(count - 1) + String(digits);
+  } else if (digits.split('').every(digit => digit === '9') && count === 0) {
+      digits = Number(digits) + 1;
+      return alphaChars + '0'.repeat(count) + String(digits);
+  } else if (digits.split('').some(digit => digit !== '9') && count > 0) {
+      digits = Number(digits) + 1;
+      return alphaChars + '0'.repeat(count) + String(digits);
+  }  else if (digits.split('').some(digit => digit !== '9') && count === 0) {
+    digits = Number(digits) + 1;
+    return alphaChars + String(digits);
+  }
+}
+
+function getLastDigits(string) {
+  let digits = '';
+  let i = string.length - 1;
+
+  while (string[i].match(/[0-9]/g)) {
+    digits += string[i];
+    i -= 1;
+  }
+
+  return digits.split('').reverse().join('')
+}
+
+function getLeadingZeros(digits) {
+  let count = 0;
+  let i = 0;
+
+  while (digits[i] === '0') {
+    count += 1;
+    i += 1;
+  }
+
+  return count;
+}
+
+function deleteLeadingZeros(digits) {
+  let cleanDigits = digits.split('');
+  let i = 0;
+
+  while (digits[i] === '0') {
+    cleanDigits.shift();
+    i += 1;
+  }
+
+  return cleanDigits.join('');
+}
