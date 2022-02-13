@@ -127,3 +127,51 @@ function deleteLeadingZeros(digits) {
 
   return cleanDigits.join('');
 }
+
+//Natalie's answer
+
+let invalidInput = str => !(typeof str === 'string');
+
+function findCount(strNum) {
+  let count = 0;
+  
+  for (let i = 0; i < strNum.length; i++) {
+    if (strNum[i] === '0') {
+      count += 1;
+    } else {
+      break;
+    }
+  }
+  
+  return count;
+}
+
+function formatNumber(strNum) {
+  let number = parseInt(strNum, 10);
+  let count = findCount(strNum);
+  
+  let newNumber = number + 1;
+  let newNumberString;
+  
+  if (String(number).length === String(newNumber).length) {
+    newNumberString = '0'.repeat(count) + String(newNumber);
+  } else {
+    newNumberString = '0'.repeat(count ? count - 1 : 0) + String(newNumber);
+  }
+  
+   return newNumberString;
+}
+
+function incrementer(str) {
+  if (invalidInput(str)) return false;
+  let numString = str.match(/\d+$/) 
+  numString = numString ? numString[0] : '';
+  let cleanString = str.replace(/[0-9]/g, '');
+  
+  if (numString === '' || /^0+$/.test(numString)) {
+    return cleanString + numString + '1';
+  }
+  
+  let newNum = formatNumber(numString);
+  return cleanString + newNum;
+}
