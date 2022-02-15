@@ -97,3 +97,57 @@ console.log(sortEvens(undefined)) // false
 console.log(sortEvens({})) // false
 console.log(sortEvens(function() {})) // false
 console.log(sortEvens([[2], [0]])) // [[2], [0]]
+
+// Anna's answer
+function sortEvens(arr) {
+  let arrayCopy = [...arr];
+  let evensArray = getEvens(arrayCopy);
+  let sortedEvens = sortEvenNumbers(evensArray);
+  let replacedEvens = replaceEvenNumber(arrayCopy);
+
+  return mergedArray = mergeArrays(sortedEvens, replacedEvens)
+}
+
+function getEvens(array) {
+  let evens = [];
+
+  array.forEach(elem => {
+    if (Number(elem) % 2 === 0) {
+      evens.push(elem);
+    }
+  });
+
+  return evens;
+}
+
+function sortEvenNumbers(evensArray) {
+  return evensArray.sort((a, b) => {
+    if (Number(a) > Number(b)) {
+      return 1;
+    } else if (Number(a) < Number(b)) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+}
+
+function replaceEvenNumber(arrayCopy) {
+  return arrayCopy.map(elem => {
+    if (Number(elem) % 2 === 0) {
+      return '-'
+    } else {
+      return elem;
+    }
+  });
+}
+
+function mergeArrays(sortedEvens, arrayCopy) {
+  return arrayCopy.map(elem => {
+    if (elem === '-') {
+      return sortedEvens.shift();
+    } else {
+      return elem;
+    }
+  })
+}
