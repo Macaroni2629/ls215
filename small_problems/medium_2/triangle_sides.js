@@ -93,16 +93,13 @@ Algorithm:
 
 */
 
-function triangle(num1, num2, num3) {
-  console.log(num1, "num1", num2, "num2", num3, "num3")
-  let holder = [...arguments]
-  if (holder.length === 0) return false;
-  if (holder.some(element => element === Infinity)) return false
-... (47 lines left)
-Collapse
-message.txt
-6 KB
-﻿
+// function triangle(num1, num2, num3) {
+//   console.log(num1, "num1", num2, "num2", num3, "num3")
+//   let holder = [...arguments]
+//   if (holder.length === 0) return false;
+//   if (holder.some(element => element === Infinity)) return false
+// }
+
 // Triangle Sides
 // A triangle is classified as follows:
 
@@ -198,15 +195,18 @@ Algorithm:
 
 */
 
+let checkIsNumber = element => element !== Infinity && 
+                               element > 0 && 
+                               typeof(element) === 'number' && 
+                               !isNaN(element);
+
 function triangle(num1, num2, num3) {
-  console.log(num1, "num1", num2, "num2", num3, "num3")
   let holder = [...arguments]
   if (holder.length === 0) return false;
   if (holder.some(element => element === Infinity)) return false
   if (!isValidDataType(holder)) return false;
   if (!isValidTriangle(holder)) return "Invalid";
-  
-  console.log(holder)
+
   if (holder.every(element => element === holder[0])) {
     return "equilateral"
   } else if (holder[0] === holder[1] || holder[0] === holder[2] || holder[1] === holder[2] ) {
@@ -228,8 +228,8 @@ function isValidTriangle(holder) {
 }
 
 function isValidDataType(holder) {
-  return holder.every(element => {
-    if (element !== Infinity && element > 0 && typeof(element) === 'number' && !isNaN(element)) return true;
+  holder.every(element => {
+    if (checkIsNumber(element)) return true;
     return false;
   })
 }
@@ -248,5 +248,5 @@ function isValidDataType(holder) {
 // console.log(triangle([], 2, 3)) // false
 // console.log(triangle({}, 5, 6)) // false
 // console.log(triangle(undefined, 5, 6)) // false
-console.log(triangle((2, 3))) // false
-console.log(triangle((Infinity, 4, 5))) // false
+console.log(triangle(2, 3)) // false
+console.log(triangle(Infinity, 4, 5)) // false
