@@ -128,3 +128,27 @@ console.log(isSet([
 // Notes
 // A set cannot have 2/3 cards having the same property. Either all must share that property, or none will share that particular property.
 // You can play Set by checking the Resources tab.
+
+// Anne T's solution
+
+// function isSet(set) {
+//   let colors = []
+//   let numbers = []
+//   let shades = []
+//   let shapes = []
+  
+//   set.forEach(card => {
+//     colors.push(card.color)
+//     numbers.push(card.number)
+//     shades.push(card.shade)
+//     shapes.push(card.shape)
+//   })
+  
+//   let propArray = [colors, numbers, shades, shapes];
+//   let valid = true;
+  
+//   propArray.forEach(propArr => {
+//     if (new Set(propArr).size === 2) valid = false;
+//   })
+//   return valid;
+// }
