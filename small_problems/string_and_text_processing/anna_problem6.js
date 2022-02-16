@@ -129,3 +129,38 @@ console.log(sortGarbage(input));
 // ["rotten apples", "out of date yogurt"],
 // ["out of date yogurt"]
 // ]
+
+//Anna's solution
+
+function recycle(items) {
+  let recycleGroups = { paper: [], glass: [], organic: [], plastic: [] };
+
+  items.forEach(item => {
+    getMaterial(recycleGroups, item, item.material);
+    getMaterial(recycleGroups, item, item.secondMaterial);
+  });
+
+  return recycleGroups;
+}
+
+function getMaterial(items, item, material) {
+  if (material === 'paper') {
+      items.paper.push(item.type);
+    } else if (material === 'glass') {
+      items.glass.push(item.type);
+    } else if (material === 'organic') {
+      items.organic.push(item.type);
+    } else if (material === 'plastic') {
+      items.plastic.push(item.type);
+  }
+}
+
+let input = [
+  {"type": "rotten apples", "material": "organic"},
+  {"type": "out of date yogurt", "material": "organic", "secondMaterial": "plastic"},
+  {"type": "wine bottle", "material": "glass", "secondMaterial": "paper"},
+  {"type": "amazon box", "material": "paper"},
+  {"type": "beer bottle", "material": "glass", "secondMaterial": "paper"}
+]
+
+console.log(recycle(input));

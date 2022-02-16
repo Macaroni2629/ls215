@@ -105,3 +105,54 @@ let recipe = {
 
 
 console.log(cake('caster sugar', 200, recipe))
+
+//Anna's solution
+function cake(ingredient, amount) {
+  let ingredientsAndAmounts = Object.entries(recipe);
+  let ingredientsAndAmountsClean = cleanIngredients(ingredientsAndAmounts);
+  let divisor = getDivisor(ingredientsAndAmountsClean, ingredient, amount)
+  let finalIngredients = getFinalIngredients(ingredientsAndAmountsClean)
+ 
+  return Object.fromEntries(finalIngredients);
+}
+
+function cleanIngredients(array) {
+  return array.map(ingredient => {
+    if (ingredient[1][ingredient[1].length - 1] === 'g') {
+      return [ingredient[0], parseInt(ingredient[1], 10)]
+    } else {
+      return [ingredient[0], parseInt(ingredient[1], 10)]
+    }
+  });
+}
+
+function getDivisor(ingredients, givenIngredient, amount) {
+  ingredients.forEach(cleanIngredient => {
+    if (cleanIngredient[0] === givenIngredient) {
+      divisor = parseInt(recipe[givenIngredient], 10) / amount
+    }
+  })
+
+  return divisor
+}
+
+function getFinalIngredients(ingredients) {
+  return ingredients.slice().map(ingredient => {
+    if (ingredient[0] === 'eggs') {
+      return [ingredient[0],  parseInt(recipe[ingredient[0]], 10) / divisor.toFixed(1)]
+    } else {
+      return [ingredient[0],  parseInt(recipe[ingredient[0]], 10) / divisor.toFixed(1) + 'g']
+    }
+  });
+}
+
+let recipe = { 
+  'caster sugar': '160g', 
+  butter: '170g', 
+  eggs: 3, 
+  'self-raising flour': '115g', 
+  'cocoa powder': '55g'
+};
+
+console.log(cake('caster sugar', 80));
+// {'caster sugar': '80g', butter: '85g', eggs: 1.5, 'self-raising flour': '57.5g', 'cocoa powder': '27.5g'}
