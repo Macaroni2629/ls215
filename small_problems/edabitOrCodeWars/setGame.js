@@ -1,3 +1,5 @@
+https://edabit.com/challenge/278bzxEFeTKNiKXfM
+
 // Validating a Set in the Set Game
 // In the game Set, three cards form a set if each of the cards are identical or completely different for each of the four properties. All three cards must:
 
