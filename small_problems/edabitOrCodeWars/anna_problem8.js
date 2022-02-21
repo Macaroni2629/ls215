@@ -162,3 +162,54 @@ console.log(minWindowSubstring('aaaaabdbbbcccccc', 'abc')) // abdbbbc'
 
 console.log(minWindowSubstring("ahffaksfajeeubsne", "jefaa")) // == 'aksfaje'
 console.log(minWindowSubstring('abc', 'abbc')) // "Not possible"
+
+
+//Anna's answer
+function MinWindowSubstring(str1, str2) {
+  if (str1.length === 0 || str2.length === 0) {
+    return '';
+  }
+  
+  let substrings = getSubstrings(str1);
+
+  let relevantSubstrings = substrings.filter(substr => {
+    return str2.split('').every(char => {
+      let regex = new RegExp(char, 'g')
+      return (substr.match(regex) || []).length >= str2.match(regex).length
+    });
+  });
+
+  return relevantSubstrings.reduce((last, current) => {
+    if (last.length < current.length) {
+      return last;
+    } else {
+      return current;
+    }
+  })
+}
+
+function getSubstrings(str) {
+  let substrings = [];
+
+  for (let i = 0; i < str.length; i += 1) {
+    for (let j = i; j < str.length; j += 1) {
+      console.log(str.slice(i, j + 5));
+      substrings.push(str.slice(i, j + 5))
+    }
+  }
+
+  return substrings;
+}
+
+console.log(MinWindowSubstring("ahffaksfajeeubsne", "jefaa")) // == 'aksfaje'
+// console.log(MinWindowSubstring("aaffhkksemckelloe", "fhea")) // == 'affhkkse'
+// console.log(MinWindowSubstring("", "fhea")) // == ''
+
+// console.log(minWindowSubstring("aaabaaddae", "aed")) // "dae"
+// console.log(minWindowSubstring("aaffhkksemckelloe", "fhea")) // == 'affhkkse'
+// console.log(minWindowSubstring("", "fhea")) // == ''
+// console.log(minWindowSubstring('iuebisijhanhiiijjgsiasd', 'hijs')) // sijh
+// console.log(minWindowSubstring('aaaaabdbbbcccccc', 'abc')) // abdbbbc'
+
+// console.log(minWindowSubstring("ahffaksfajeeubsne", "jefaa")) // == 'aksfaje'
+// console.log(minWindowSubstring('abc', 'abbc')) // "Not possible"
