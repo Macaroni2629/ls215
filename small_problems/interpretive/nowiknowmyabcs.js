@@ -93,3 +93,28 @@ function isBlockWord(word) {
     return (idx !== -1);
   });
 }
+
+function isBlockWord(string) {
+  string = string.toUpperCase();
+  const BLOCKS = ["BO", "XK", "DQ", "CP", "NA", "GT", "RE", "FS", "JW", "HU", "VI", "LY", "ZM"];
+  let answer = true;
+  let count;
+  BLOCKS.forEach(block => {
+    count = 0;
+    let regex1 = new RegExp(block[0], "g");
+    let arrayOfMatches = string.match(regex1) || []
+    count += arrayOfMatches.length;
+    let regex2 = new RegExp(block[1], "g");
+    let arrayOfMatches2 = string.match(regex2) || [];
+    count += arrayOfMatches2.length;
+    if (count > 1) {
+      answer = false;
+    }
+  })
+  return answer;
+}
+
+
+console.log(isBlockWord('BATCH'));      // true
+console.log(isBlockWord('BUTCH'));      // false
+console.log(isBlockWord('jest'));       // true
