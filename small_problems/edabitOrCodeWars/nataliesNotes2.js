@@ -67,15 +67,24 @@ Declare function `transactionsFor` with parameter `transID, arrayOfTransactions`
       
 */
 // Rules it is an object
-What type of object? 
-  step 1 check null or undefined.. if not then proceed
-  {} - {}.constructor.name (BUT check that it isn't null or undefined first!)
+// What type of object? 
+//   step 1 check null or undefined.. if not then proceed
+//   {} - {}.constructor.name (BUT check that it isn't null or undefined first!)
                           
 //
 function transactionsFor(itemID, arrayOfTransactions) {
   if (!isValidDataType(arrayOfTransactions)) return false;
   
-  
+  if (!isValidDataType2(itemID)) return false;
+  return true;
+}
+
+function isValidDataType2(itemID) {
+  if (!typeof itemID === 'number') return false;
+  console.log('heyyyy')
+  if (!Number.isFinite(itemID)) return false;
+  console.log('hellooo')
+  return true;
 }
 
 function isInnerElementAnObject(arrayOfTransactions) {
@@ -87,24 +96,65 @@ function isInnerElementAnObject(arrayOfTransactions) {
 
 function isValidDataType(arrayOfTransactions) {
   if (!Array.isArray(arrayOfTransactions)) return false
-  
   if (!isInnerElementAnObject(arrayOfTransactions)) return false
-  console.log('hey')
-  
   if (!doesEveryObjectHaveThreeProperties(arrayOfTransactions)) return false;
+  if (!doesEveryObjectHaveTheCorrectThreeProperties(arrayOfTransactions)) return false;
+  return true;
 }
+
+function doesEveryObjectHaveTheCorrectThreeProperties(arrayOfTransactions) {
+  return (arrayOfTransactions.every(object => {
+    return checkObjectsProperties(object)
+  }))
+}
+
+function checkObjectsProperties(object) {
+  let arrayOfKeys = Object.keys(object);
+  let a = arrayOfKeys.every(key => {
+    return (["id", "movement", "quantity"].includes(key))
+  })
+  return a;
+}
+
+function valueIsCorrect (object) {
+  let trueOrFalse = true;
+  let arrayOfValues = Object.values(object);
+
+  arrayOfValues.forEach(value => {
+    if (typeof object["id"] !== "number") {
+      console.log(typeof object["id"], "hello")
+      console.log('hey')
+      trueOrFalse = false;
+    } else if (typeof object["movement" !== "string"]) {
+      console.log("blue")
+      trueOrFalse = false;
+    } else if (typeof object["quantity" !== "number"]) {
+      console.log("red")
+      trueOrFalse = false;
+    }
+  }) 
+  return trueOrFalse;
+}
+  
 
 function doesEveryObjectHaveThreeProperties(arrayOfTransactions) {
   let trueOrFalse = true;
  
   arrayOfTransactions.forEach(object => {
-    if (object.keys !== 3) {
+    if(Object.keys(object).length !== 3) {
       trueOrFalse = false
     }
   })
-  
+
+  arrayOfTransactions.forEach(object => {
+    if (!valueIsCorrect(object)) {
+      trueOrFalse = false;
+    }
+  })  
   return trueOrFalse;
 }
+
+
 
 // Copy Code
 const transactions = [ { id: 101, movement: 'in',  quantity:  5 },
@@ -151,13 +201,13 @@ console.log(transactionsFor(101, transactions)); // happy path
 // console.log(transactionsFor(Infinity, transactions)) // false
 // console.log(transactionsFor('hi', transactions)) // false
 
-// console.log(transactionsFor(101, [{ id: 103, movement: 'out', quantity: 15, hair: "yes" }])) // false
+//console.log(transactionsFor(101, [{ id: 103, movement: 'out', quantity: 15, hair: "yes" }])) // false
 
 
-// console.log(transactionsFor(101, [{ id: null, movement: 'out', quantity: 15 }])) //false
-// console.log(transactionsFor(101, [{ id: 'hi', movement: 'out', quantity: 15 }])) // false
-// console.log(transactionsFor(101, [{ id: Infinity, movement: 'out', quantity: 15 }])) // false
-// console.log(transactionsFor(101, [{ id: NaN, movement: 'out', quantity: 15 }])) // false
+//  console.log(transactionsFor(101, [{ id: null, movement: 'out', quantity: 15 }])) //false
+//  console.log(transactionsFor(101, [{ id: 'hi', movement: 'out', quantity: 15 }])) // false
+//  console.log(transactionsFor(101, [{ id: Infinity, movement: 'out', quantity: 15 }])) // false
+//  console.log(transactionsFor(101, [{ id: NaN, movement: 'out', quantity: 15 }])) // false
 
 // console.log(transactionsFor(101, [{ id: 101, movement: 'DOG', quantity: 15 }])) // false
 // console.log(transactionsFor(101, [{ id: 0.8, movement: '', quantity: 15 }])) // false
